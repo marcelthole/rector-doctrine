@@ -1,4 +1,4 @@
-# 19 Rules Overview
+# 20 Rules Overview
 
 ## AddReturnDocBlockToCollectionPropertyGetterByToManyAnnotationRector
 
@@ -378,6 +378,23 @@ Replace `Doctrine\ORM\Event\LifecycleEventArgs` with specific event classes base
          // ...
      }
  }
+```
+
+<br>
+
+## SetParametersArrayToCollectionRector
+
+Change the argument type for setParameters from array to ArrayCollection and Parameter calls
+
+- class: [`Rector\Doctrine\Orm30\Rector\MethodCall\SetParametersArrayToCollectionRector`](../rules/Orm30/Rector/MethodCall/SetParametersArrayToCollectionRector.php)
+
+```diff
+-$entityManager->createQueryBuilder()->setParameters([
+-    'foo' => 'bar'
+-]);
++$entityManager->createQueryBuilder()->setParameters(new \Doctrine\Common\Collections\ArrayCollection([
++    new \Doctrine\ORM\Query\Parameter('foo', 'bar')
++]));
 ```
 
 <br>
